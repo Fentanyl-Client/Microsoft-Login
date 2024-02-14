@@ -10,10 +10,13 @@
 
 package tech.fentanyl.microsoftlogin.impl.cookie;
 
+import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
 import tech.fentanyl.microsoftlogin.impl.profile.MicrosoftProfile;
 
 public class CookieProfile extends MicrosoftProfile { // No additional methods or fields, added for clarity.
+    public CookieProfile() {}
+
     public CookieProfile(String username, String id, String accessToken, String refreshToken) {
-        super(username, id, accessToken, refreshToken);
+        super(username, id, accessToken, refreshToken, ProfileType.COOKIE);
     }
 }

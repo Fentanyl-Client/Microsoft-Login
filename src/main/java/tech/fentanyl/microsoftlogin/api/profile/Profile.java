@@ -18,6 +18,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Profile implements IProfile {
     private String username;
+    private ProfileType type;
 
     public Profile() {}
 
@@ -25,6 +26,7 @@ public class Profile implements IProfile {
     public JsonObject toJson() {
         JsonObject json = new JsonObject();
         json.addProperty("username", this.username);
+        json.addProperty("type", this.type.name());
         return json;
     }
 

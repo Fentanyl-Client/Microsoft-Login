@@ -1,11 +1,10 @@
 package tech.fentanyl.microsoftlogin.api.profile;
 
 import com.google.gson.JsonObject;
+import tech.fentanyl.microsoftlogin.api.IJson;
 
-public interface IProfile {
+public interface IProfile extends IJson {
     String getUsername();
 
-    JsonObject toJson();
-
-    void fromJson(JsonObject json);
+    ProfileType getType();
 }

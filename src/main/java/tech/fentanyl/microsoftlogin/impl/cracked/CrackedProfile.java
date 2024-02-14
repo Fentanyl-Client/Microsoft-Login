@@ -11,9 +11,14 @@
 package tech.fentanyl.microsoftlogin.impl.cracked;
 
 import tech.fentanyl.microsoftlogin.api.profile.Profile;
+import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
 
 public class CrackedProfile extends Profile { // No additional methods or fields, added for clarity.
+    public CrackedProfile() {
+        super();
+    }
+
     public CrackedProfile(String username) {
-        super(username);
+        super(username, ProfileType.CRACKED);
     }
 }

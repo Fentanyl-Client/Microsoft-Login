@@ -10,10 +10,13 @@
 
 package tech.fentanyl.microsoftlogin.impl.web;
 
+import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
 import tech.fentanyl.microsoftlogin.impl.profile.MicrosoftProfile;
 
 public class WebProfile extends MicrosoftProfile { // No additional methods or fields, added for clarity.
-    public WebProfile(String username, String id, String acccessToken, String refreshToken) {
-        super(username, id, acccessToken, refreshToken);
+    public WebProfile() {}
+    
+    public WebProfile(String username, String id, String accessToken, String refreshToken) {
+        super(username, id, accessToken, refreshToken, ProfileType.WEB);
     }
 }
