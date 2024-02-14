@@ -8,31 +8,17 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package tech.fentanyl.microsoftlogin.impl.cookie;
+package tech.fentanyl.microsoftlogin.impl.login.cracked;
 
-import lombok.SneakyThrows;
-import okhttp3.Cookie;
+import lombok.AllArgsConstructor;
 import tech.fentanyl.microsoftlogin.api.login.Login;
-import tech.fentanyl.microsoftlogin.impl.web.WebProfile;
 
-import java.util.List;
-
-public class CookieLogin extends Login<CookieProfile> {
-    private final List<Cookie> cookies;
-
-    @SneakyThrows
-    public CookieLogin(String path) {
-        this.cookies = CookieParser.parseFromFile(path);
-    }
+@AllArgsConstructor
+public class CrackedLogin extends Login<CrackedProfile> {
+    private final String username;
 
     @Override
-    @SneakyThrows
-    public CookieProfile login() {
-        return new CookieLogic(this.cookies).auth();
-    }
-
-    @SneakyThrows
-    public CookieProfile refresh(WebProfile profile) {
-        return new CookieLogic(this.cookies).refresh(profile.getRefreshToken());
+    public CrackedProfile login() {
+        return new CrackedProfile(this.username);
     }
 }

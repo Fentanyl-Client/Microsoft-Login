@@ -8,39 +8,42 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package tech.fentanyl.microsoftlogin.impl.util;
+package tech.fentanyl.microsoftlogin.impl.profile.impl;
 
 import com.google.gson.JsonObject;
-import lombok.experimental.UtilityClass;
-import tech.fentanyl.microsoftlogin.api.profile.IProfile;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import tech.fentanyl.microsoftlogin.api.profile.Profile;
 import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
-import tech.fentanyl.microsoftlogin.impl.login.cookie.CookieProfile;
-import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedProfile;
-import tech.fentanyl.microsoftlogin.impl.profile.impl.MicrosoftProfile;
 
-@UtilityClass
-public class ProfileUtil {
-    public static IProfile dynamicCreate(JsonObject json) {
-        ProfileType type = ProfileType.valueOf(json.get("type").getAsString());
-        IProfile profile = null;
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class MicrosoftProfile extends Profile {
+    private String id, accessToken, refreshToken;
 
-        switch (type) {
-            case CRACKED:
-                profile = new CrackedProfile();
-                break;
-            case COOKIE:
-                profile = new CookieProfile();
-                break;
-            case WEB:
-                profile = new MicrosoftProfile();
-                break;
-        }
+    public MicrosoftProfile() {}
 
-        if (profile == null) {
-            throw new IllegalArgumentException("dynamicCreate: profile is null");
-        }
+    public MicrosoftProfile(String username, String id, String accessToken, String refreshToken, ProfileType type) {
+        super(username, type);
+        this.id = id;
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
+    }
 
-        profile.fromJson(json);
-        return profile;
+    @Override
+    public JsonObject toJson() {
+        JsonObject json = super.toJson();
+        json.addProperty("id", this.id);
+        json.addProperty("accessToken", this.accessToken);
+        json.addProperty("refreshToken", this.refreshToken);
+        return json;
+    }
+
+    @Override
+    public void fromJson(JsonObject json) {
+        super.fromJson(json);
+        this.id = json.get("id").getAsString();
+        this.accessToken = json.get("accessToken").getAsString();
+        this.refreshToken = json.get("refreshToken").getAsString();
     }
 }

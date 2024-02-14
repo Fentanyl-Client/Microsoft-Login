@@ -29,9 +29,9 @@ or you can check the [releases](https://github.com/Fentanyl-Client/Microsoft-Log
 Cracked login is just a stub. Many clients include support for cracked accounts, but they have no login process.
 
 ```java
-import com.google.gson.JsonObject;
-import tech.fentanyl.microsoftlogin.impl.cracked.CrackedLogin;
-import tech.fentanyl.microsoftlogin.impl.cracked.CrackedProfile;
+
+import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedLogin;
+import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedProfile;
 
 public class Main {
     public static void main(String[] args) {
@@ -47,8 +47,8 @@ public class Main {
 Cookie login parses a file containing cookies (stored in the Netscape format) and logs in using them.
 
 ```java
-import com.google.gson.JsonObject;
-import tech.fentanyl.microsoftlogin.impl.cookie.CookieLogin;
+
+import tech.fentanyl.microsoftlogin.impl.login.cookie.CookieLogin;
 
 public class Main {
     public static void main(String[] args) {
@@ -64,14 +64,14 @@ public class Main {
 Web login opens a web browser and prompts the user to login to Microsoft.
 
 ```java
-import com.google.gson.JsonObject;
-import tech.fentanyl.microsoftlogin.impl.web.WebLogin;
+
+import tech.fentanyl.microsoftlogin.impl.login.web.WebLogin;
 
 public class Main {
     public static void main(String[] args) {
         WebLogin login = new WebLogin(true); // true/false indicates the browser to open in incognito mode (Windows only)
         WebProfile profile = login.login();
-        
+
         Session session = new Session(profile.getUsername(), profile.getId(), profile.getAccessToken(), "microsoft");
     }
 }
@@ -86,7 +86,7 @@ They all implement the `IProfile` interface and can be stored as JSON.
 ```java
 import com.google.gson.JsonObject;
 import tech.fentanyl.microsoftlogin.impl.cookie.WebProfile;
-import tech.fentanyl.microsoftlogin.impl.web.WebProfile;
+import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
 
 public class Main {
     public static void main(String[] args) {

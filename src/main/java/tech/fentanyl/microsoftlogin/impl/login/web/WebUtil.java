@@ -8,15 +8,27 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package tech.fentanyl.microsoftlogin.impl.cookie;
+package tech.fentanyl.microsoftlogin.impl.login.web;
 
-import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
-import tech.fentanyl.microsoftlogin.impl.profile.MicrosoftProfile;
+import lombok.SneakyThrows;
+import lombok.experimental.UtilityClass;
 
-public class CookieProfile extends MicrosoftProfile { // No additional methods or fields, added for clarity.
-    public CookieProfile() {}
+import java.awt.*;
+import java.net.URI;
 
-    public CookieProfile(String username, String id, String accessToken, String refreshToken) {
-        super(username, id, accessToken, refreshToken, ProfileType.COOKIE);
+@UtilityClass
+public class WebUtil {
+    @SneakyThrows
+    public static void open(String url) {
+        Desktop.getDesktop().browse(URI.create(url));
+    }
+
+    @SneakyThrows
+    public static void openIncognito(String url) { // TODO: Add support for more operating systems
+        if (System.getProperty("os.name").toLowerCase().contains("win")) {
+            Runtime.getRuntime().exec("cmd.exe /c start msedge.exe -inprivate \"" + url + "\"");
+        } else {
+            throw new UnsupportedOperationException("Incognito mode is not supported on this operating system");
+        }
     }
 }

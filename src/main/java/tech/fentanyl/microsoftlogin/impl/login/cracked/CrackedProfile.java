@@ -8,42 +8,17 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package tech.fentanyl.microsoftlogin.impl.profile;
+package tech.fentanyl.microsoftlogin.impl.login.cracked;
 
-import com.google.gson.JsonObject;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import tech.fentanyl.microsoftlogin.api.profile.Profile;
 import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
 
-@EqualsAndHashCode(callSuper = true)
-@Data
-public class MicrosoftProfile extends Profile {
-    private String id, accessToken, refreshToken;
-
-    public MicrosoftProfile() {}
-
-    public MicrosoftProfile(String username, String id, String accessToken, String refreshToken, ProfileType type) {
-        super(username, type);
-        this.id = id;
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
+public class CrackedProfile extends Profile { // No additional methods or fields, added for clarity.
+    public CrackedProfile() {
+        super();
     }
 
-    @Override
-    public JsonObject toJson() {
-        JsonObject json = super.toJson();
-        json.addProperty("id", this.id);
-        json.addProperty("accessToken", this.accessToken);
-        json.addProperty("refreshToken", this.refreshToken);
-        return json;
-    }
-
-    @Override
-    public void fromJson(JsonObject json) {
-        super.fromJson(json);
-        this.id = json.get("id").getAsString();
-        this.accessToken = json.get("accessToken").getAsString();
-        this.refreshToken = json.get("refreshToken").getAsString();
+    public CrackedProfile(String username) {
+        super(username, ProfileType.CRACKED);
     }
 }

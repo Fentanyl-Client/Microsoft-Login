@@ -1,4 +1,4 @@
-package tech.fentanyl.microsoftlogin.impl.manager;
+package tech.fentanyl.microsoftlogin.impl.profile;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;

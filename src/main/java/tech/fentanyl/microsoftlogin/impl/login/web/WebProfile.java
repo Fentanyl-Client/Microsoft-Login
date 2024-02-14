@@ -8,17 +8,15 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package tech.fentanyl.microsoftlogin.impl.cracked;
+package tech.fentanyl.microsoftlogin.impl.login.web;
 
-import lombok.AllArgsConstructor;
-import tech.fentanyl.microsoftlogin.api.login.Login;
+import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
+import tech.fentanyl.microsoftlogin.impl.profile.impl.MicrosoftProfile;
 
-@AllArgsConstructor
-public class CrackedLogin extends Login<CrackedProfile> {
-    private final String username;
-
-    @Override
-    public CrackedProfile login() {
-        return new CrackedProfile(this.username);
+public class WebProfile extends MicrosoftProfile { // No additional methods or fields, added for clarity.
+    public WebProfile() {}
+    
+    public WebProfile(String username, String id, String accessToken, String refreshToken) {
+        super(username, id, accessToken, refreshToken, ProfileType.WEB);
     }
 }
