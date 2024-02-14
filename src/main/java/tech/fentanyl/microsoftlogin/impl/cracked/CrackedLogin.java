@@ -12,14 +12,13 @@ package tech.fentanyl.microsoftlogin.impl.cracked;
 
 import lombok.AllArgsConstructor;
 import tech.fentanyl.microsoftlogin.api.login.Login;
-import tech.fentanyl.microsoftlogin.api.profile.IProfile;
 
 @AllArgsConstructor
-public class CrackedLogin extends Login {
+public class CrackedLogin extends Login<CrackedProfile> {
     private final String username;
 
     @Override
-    public IProfile login() {
+    public CrackedProfile login() {
         return new CrackedProfile(this.username);
     }
 }
