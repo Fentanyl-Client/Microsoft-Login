@@ -1,9 +1,32 @@
 # Microsoft Login
 A Java library for Minecraft cheats to log into Microsoft. This is designed to simplify the overall process.
 
+## Installation
+You can install this package using [Jitpack](https://jitpack.io/#Fentanyl-Client/Microsoft-Login).
+
+### Gradle
+```gradle
+dependencies {
+    implementation 'com.github.darraghd493:microsoft-login:1.0.0'
+}
+```
+
+### Maven
+```xml
+<dependencies>
+    <dependency>
+        <groupId>com.github.darraghd493</groupId>
+        <artifactId>microsoft-login</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
+
+or you can check the [releases](https://github.com/Fentanyl-Client/Microsoft-Login/releases/latest) for a compiled .jar.
+
 ## Usage
 ### Cracked Login
-Cracked login is just a stub. Many clients include support for cracked accounts but they have no login process.
+Cracked login is just a stub. Many clients include support for cracked accounts, but they have no login process.
 
 ```java
 import com.google.gson.JsonObject;
