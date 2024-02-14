@@ -29,7 +29,7 @@ or you can check the [releases](https://github.com/Fentanyl-Client/Microsoft-Log
 Cracked login is just a stub. Many clients include support for cracked accounts, but they have no login process.
 
 ```java
-
+import net.minecraft.util.Session;
 import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedLogin;
 import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedProfile;
 
@@ -47,8 +47,9 @@ public class Main {
 Cookie login parses a file containing cookies (stored in the Netscape format) and logs in using them.
 
 ```java
-
+import net.minecraft.util.Session;
 import tech.fentanyl.microsoftlogin.impl.login.cookie.CookieLogin;
+import tech.fentanyl.microsoftlogin.impl.login.cookie.CookieProfile;
 
 public class Main {
     public static void main(String[] args) {
@@ -64,8 +65,9 @@ public class Main {
 Web login opens a web browser and prompts the user to login to Microsoft.
 
 ```java
-
+import net.minecraft.util.Session;
 import tech.fentanyl.microsoftlogin.impl.login.web.WebLogin;
+import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
 
 public class Main {
     public static void main(String[] args) {
@@ -85,7 +87,7 @@ They all implement the `IProfile` interface and can be stored as JSON.
 
 ```java
 import com.google.gson.JsonObject;
-import tech.fentanyl.microsoftlogin.impl.cookie.WebProfile;
+import tech.fentanyl.microsoftlogin.impl.login.web.WebLogin;
 import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
 
 public class Main {
@@ -95,6 +97,29 @@ public class Main {
 
         JsonObject json = profile.toJson();
         WebProfile profile2 = new WebProfile().fromJson(json);
+    }
+}
+```
+
+### Manager
+The manager is a simple way to manage multiple accounts.
+
+```java
+import com.google.gson.JsonObject;
+import tech.fentanyl.microsoftlogin.impl.profile.ProfileManager;
+import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
+import tech.fentanyl.microsoftlogin.impl.login.web.WebLogin;
+
+public class Main {
+    public static void main(String[] args) {
+        ProfileManager manager = new ProfileManager();
+
+        WebLogin login = new WebLogin(true);
+        WebProfile profile = login.login();
+        manager.addProfile(profile);
+        
+        JsonObject json = manager.toJson();
+        ProfileManager manager2 = new ProfileManager().fromJson(json);
     }
 }
 ```
