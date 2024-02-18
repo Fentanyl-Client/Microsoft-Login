@@ -22,6 +22,10 @@ public class Profile implements IProfile {
 
     public Profile() {}
 
+    public Profile(ProfileType type) {
+        this.type = type;
+    }
+
     @Override
     public JsonObject toJson() {
         JsonObject json = new JsonObject();

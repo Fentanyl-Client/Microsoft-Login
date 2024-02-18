@@ -21,7 +21,9 @@ import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
 public class MicrosoftProfile extends Profile {
     private String id, accessToken, refreshToken;
 
-    public MicrosoftProfile() {}
+    public MicrosoftProfile(ProfileType type) {
+        super(type);
+    }
 
     public MicrosoftProfile(String username, String id, String accessToken, String refreshToken, ProfileType type) {
         super(username, type);

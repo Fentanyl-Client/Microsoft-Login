@@ -15,7 +15,7 @@ import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
 
 public class CrackedProfile extends Profile { // No additional methods or fields, added for clarity.
     public CrackedProfile() {
-        super();
+        super(ProfileType.CRACKED);
     }
 
     public CrackedProfile(String username) {

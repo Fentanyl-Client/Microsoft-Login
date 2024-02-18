@@ -14,7 +14,9 @@ import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
 import tech.fentanyl.microsoftlogin.impl.profile.impl.MicrosoftProfile;
 
 public class WebProfile extends MicrosoftProfile { // No additional methods or fields, added for clarity.
-    public WebProfile() {}
+    public WebProfile() {
+        super(ProfileType.WEB);
+    }
     
     public WebProfile(String username, String id, String accessToken, String refreshToken) {
         super(username, id, accessToken, refreshToken, ProfileType.WEB);
