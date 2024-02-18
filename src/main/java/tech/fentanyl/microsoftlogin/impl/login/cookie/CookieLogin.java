@@ -20,9 +20,17 @@ import java.util.List;
 public class CookieLogin extends Login<CookieProfile> {
     private final List<Cookie> cookies;
 
+    public CookieLogin() {
+        this.cookies = null;
+    }
+
     @SneakyThrows
     public CookieLogin(String path) {
         this.cookies = CookieParser.parseFromFile(path);
+    }
+
+    public CookieLogin(List<Cookie> cookies) {
+        this.cookies = cookies;
     }
 
     @Override
@@ -32,7 +40,7 @@ public class CookieLogin extends Login<CookieProfile> {
     }
 
     @SneakyThrows
-    public CookieProfile refresh(WebProfile profile) {
+    public CookieProfile refresh(CookieProfile profile) {
         return new CookieLogic(this.cookies).refresh(profile.getRefreshToken());
     }
 }
