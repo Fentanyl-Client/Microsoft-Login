@@ -24,6 +24,9 @@ dependencies {
 
 or you can check the [releases](https://github.com/Fentanyl-Client/Microsoft-Login/releases/latest) for a compiled .jar.
 
+### Note
+You may need to install the dependencies seperately if you experience errors.
+
 ## Usage
 ### Cracked Login
 Cracked login is just a stub. Many clients include support for cracked accounts, but they have no login process.
