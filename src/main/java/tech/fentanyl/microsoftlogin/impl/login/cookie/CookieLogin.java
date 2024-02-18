@@ -13,7 +13,6 @@ package tech.fentanyl.microsoftlogin.impl.login.cookie;
 import lombok.SneakyThrows;
 import okhttp3.Cookie;
 import tech.fentanyl.microsoftlogin.api.login.Login;
-import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
 
 import java.util.List;
 

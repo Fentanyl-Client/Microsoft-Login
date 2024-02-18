@@ -16,7 +16,7 @@ import tech.fentanyl.microsoftlogin.api.profile.IProfile;
 import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
 import tech.fentanyl.microsoftlogin.impl.login.cookie.CookieProfile;
 import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedProfile;
-import tech.fentanyl.microsoftlogin.impl.profile.impl.MicrosoftProfile;
+import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
 
 @UtilityClass
 public class ProfileUtil {
@@ -32,7 +32,7 @@ public class ProfileUtil {
                 profile = new CookieProfile();
                 break;
             case WEB:
-                profile = new MicrosoftProfile();
+                profile = new WebProfile();
                 break;
         }
 
