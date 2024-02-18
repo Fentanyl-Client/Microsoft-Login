@@ -40,6 +40,10 @@ public class ProfileUtil {
             throw new IllegalArgumentException("dynamicCreate: profile is null");
         }
 
+        if (profile.getType() == null) {
+            throw new NullPointerException("dynamicCreate: profile type is null");
+        }
+
         profile.fromJson(json);
         return profile;
     }
