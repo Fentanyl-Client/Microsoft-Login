@@ -7,7 +7,7 @@ You can install this package using [Jitpack](https://jitpack.io/#Fentanyl-Client
 ### Gradle
 ```gradle
 dependencies {
-    implementation 'com.github.Fentanyl-Client:Microsoft-Login:1.0.3'
+    implementation 'com.github.Fentanyl-Client:Microsoft-Login:1.0.4'
 }
 ```
 
@@ -17,7 +17,7 @@ dependencies {
     <dependency>
         <groupId>com.github.Fentanyl-Client</groupId>
         <artifactId>Microsoft-Login</artifactId>
-        <version>1.0.3</version>
+        <version>1.0.4</version>
     </dependency>
 </dependencies>
 ```
