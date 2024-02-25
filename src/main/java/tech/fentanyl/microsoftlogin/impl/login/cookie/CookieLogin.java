@@ -40,6 +40,6 @@ public class CookieLogin extends Login<CookieProfile> {
 
     @SneakyThrows
     public CookieProfile refresh(CookieProfile profile) {
-        return new CookieLogic(this.cookies).refresh(profile.getRefreshToken());
+        return new CookieLogic().refresh(profile.getRefreshToken());
     }
 }

@@ -35,6 +35,10 @@ public class CookieLogic {
 
     private final String cookie;
 
+    public CookieLogic() {
+        this.cookie = null;
+    }
+
     public CookieLogic(List<Cookie> cookies) {
         this.cookie = CookieParser.formatCookies(cookies);
     }
