@@ -120,7 +120,7 @@ public class CookieLogic {
     }
 
     private Map.Entry<String, String> parseAccessToken(String accessToken) {
-        JsonArray json = GSON.fromJson(new String(Base64.getDecoder().decode(accessToken)), JsonObject.class).getAsJsonArray();
+        JsonArray json = GSON.fromJson(new String(Base64.getDecoder().decode(accessToken)), JsonArray.class);
         String xui = json.get(1).getAsJsonObject().get("Item2").getAsJsonObject().get("DisplayClaims").getAsJsonObject().get("xui").getAsJsonArray().get(0).getAsJsonObject().get("uhs").getAsString();
         String token = json.get(1).getAsJsonObject().get("Item2").getAsJsonObject().get("Token").getAsString();
         return new AbstractMap.SimpleImmutableEntry<>(xui, token);
