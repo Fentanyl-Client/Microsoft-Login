@@ -127,10 +127,6 @@ public class Main {
 }
 ```
 
-## Changelog
-### 1.0.0
-- Initial release
-
 ## License
 This project is licensed under the MIT Licence - see the [LICENCE](LICENSE) file for details
 ```
