@@ -46,24 +46,6 @@ public class Main {
 }
 ```
 
-### Cookie Login
-Cookie login parses a file containing cookies (stored in the Netscape format) and logs in using them.
-
-```java
-import net.minecraft.util.Session;
-import tech.fentanyl.microsoftlogin.impl.login.cookie.CookieLogin;
-import tech.fentanyl.microsoftlogin.impl.login.cookie.CookieProfile;
-
-public class Main {
-    public static void main(String[] args) {
-        CookieLogin login = new CookieLogin("cookies.txt");
-        CookieProfile profile = login.login();
-
-        Session session = new Session(profile.getUsername(), profile.getId(), profile.getAccessToken(), "microsoft");
-    }
-}
-```
-
 ### Web Login
 Web login opens a web browser and prompts the user to login to Microsoft.
 

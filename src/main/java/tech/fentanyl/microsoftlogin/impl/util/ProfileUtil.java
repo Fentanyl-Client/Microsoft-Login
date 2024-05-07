@@ -14,7 +14,6 @@ import com.google.gson.JsonObject;
 import lombok.experimental.UtilityClass;
 import tech.fentanyl.microsoftlogin.api.profile.IProfile;
 import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
-import tech.fentanyl.microsoftlogin.impl.login.cookie.CookieProfile;
 import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedProfile;
 import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
 
@@ -27,9 +26,6 @@ public class ProfileUtil {
         switch (type) {
             case CRACKED:
                 profile = new CrackedProfile();
-                break;
-            case COOKIE:
-                profile = new CookieProfile();
                 break;
             case WEB:
                 profile = new WebProfile();
