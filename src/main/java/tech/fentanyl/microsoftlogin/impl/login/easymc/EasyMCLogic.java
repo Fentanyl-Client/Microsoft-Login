@@ -18,7 +18,7 @@ public class EasyMCLogic {
     private static final String REDEEM_URL = "https://api.easymc.io/v1/token/redeem";
 
     @SneakyThrows
-    public EasyMCProfile     redeem(String token) {
+    public EasyMCProfile redeem(String token) {
         Request request = new Request.Builder()
                 .url(REDEEM_URL)
                 .header("Content-Type", "application/json")
