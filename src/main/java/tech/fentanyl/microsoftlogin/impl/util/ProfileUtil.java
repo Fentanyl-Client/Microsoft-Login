@@ -14,27 +14,12 @@ import com.google.gson.JsonObject;
 import lombok.experimental.UtilityClass;
 import tech.fentanyl.microsoftlogin.api.profile.IProfile;
 import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
-import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedProfile;
-import tech.fentanyl.microsoftlogin.impl.login.easymc.EasyMCProfile;
-import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
 
 @UtilityClass
 public class ProfileUtil {
     public static IProfile dynamicCreate(JsonObject json) {
         ProfileType type = ProfileType.valueOf(json.get("type").getAsString());
-        IProfile profile = null;
-
-        switch (type) {
-            case CRACKED:
-                profile = new CrackedProfile();
-                break;
-            case EASY_MC:
-                profile = new EasyMCProfile();
-                break;
-            case WEB:
-                profile = new WebProfile();
-                break;
-        }
+        IProfile profile = ClassUtil.newInstance(type.getProfileClass());
 
         if (profile == null) {
             throw new IllegalArgumentException("dynamicCreate: profile is null");
