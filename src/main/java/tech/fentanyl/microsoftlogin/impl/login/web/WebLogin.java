@@ -45,7 +45,7 @@ public class WebLogin extends Login<WebProfile> {
         this.login(profile::set);
 
         while (profile.get() == null) {
-            Thread.sleep(100);
+            Thread.sleep(100L);
         }
 
         return profile.get();

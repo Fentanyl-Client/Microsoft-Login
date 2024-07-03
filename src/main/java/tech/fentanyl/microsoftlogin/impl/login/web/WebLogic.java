@@ -65,7 +65,7 @@ public class WebLogic {
         return new WebProfile(profile.getValue(), profile.getKey().toString(), accessToken.getKey(), newRefreshToken);
     }
 
-    private Map.Entry<String, String> codeToToken(String code) throws IOException {
+    private static Map.Entry<String, String> codeToToken(String code) throws IOException {
         FormBody formBody = new FormBody.Builder()
                 .add("client_id", WebLogin.CLIENT_ID)
                 .add("code", code)
@@ -80,13 +80,17 @@ public class WebLogic {
                 .build();
 
         try (Response response = CLIENT.newCall(request).execute()) {
+            if (response.body() == null) {
+                throw new IOException("codeToToken response body is null");
+            }
+
             if (!response.isSuccessful()) throw new IOException("codeToToken response: " + response.code() + ", data: " + response.body().string());
 
             return getAccessRefreshTokens(response);
         }
     }
 
-    private Map.Entry<String, String> refreshToken(String refreshToken) throws IOException {
+    private static Map.Entry<String, String> refreshToken(String refreshToken) throws IOException {
         FormBody formBody = new FormBody.Builder()
                 .add("client_id", WebLogin.CLIENT_ID)
                 .add("refresh_token", refreshToken)
@@ -101,6 +105,10 @@ public class WebLogic {
                 .build();
 
         try (Response response = CLIENT.newCall(request).execute()) {
+            if (response.body() == null) {
+                throw new IOException("refreshToken response body is null");
+            }
+
             if (!response.isSuccessful()) {
                 throw new IllegalArgumentException("refreshToken response: " + response.code() + ", data: " + response.body().string());
             }
@@ -109,7 +117,7 @@ public class WebLogic {
         }
     }
 
-    private String authXBL(String authToken) throws IOException {
+    private static String authXBL(String authToken) throws IOException {
         JsonObject req = new JsonObject();
         JsonObject reqProps = new JsonObject();
         reqProps.addProperty("AuthMethod", "RPS");
@@ -129,6 +137,10 @@ public class WebLogic {
                 .build();
 
         try (Response response = CLIENT.newCall(request).execute()) {
+            if (response.body() == null) {
+                throw new IOException("authXBL response body is null");
+            }
+
             if (!response.isSuccessful()) {
                 throw new IllegalArgumentException("authXBL response: " + response.code() + ", data: " + response.body().string());
             }
@@ -138,14 +150,14 @@ public class WebLogic {
         }
     }
 
-    private Map.Entry<String, String> authXSTS(String xblToken) throws IOException {
+    private static Map.Entry<String, String> authXSTS(String xblToken) throws IOException {
         JsonObject req = new JsonObject();
-        JsonObject reqProps = new JsonObject();
+        JsonObject properties = new JsonObject();
         JsonArray userTokens = new JsonArray();
         userTokens.add(xblToken);
-        reqProps.add("UserTokens", userTokens);
-        reqProps.addProperty("SandboxId", "RETAIL");
-        req.add("Properties", reqProps);
+        properties.add("UserTokens", userTokens);
+        properties.addProperty("SandboxId", "RETAIL");
+        req.add("Properties", properties);
         req.addProperty("RelyingParty", "rp://api.minecraftservices.com/");
         req.addProperty("TokenType", "JWT");
 
@@ -159,24 +171,28 @@ public class WebLogic {
                 .build();
 
         try (Response response = CLIENT.newCall(request).execute()) {
+            if (response.body() == null) {
+                throw new IOException("authXSTS response body is null");
+            }
+
             if (!response.isSuccessful()) {
                 throw new IllegalArgumentException("authXSTS response: " + response.code() + ", data: " + response.body().string());
             }
 
             JsonObject resp = GSON.fromJson(response.body().charStream(), JsonObject.class);
-
             JsonObject displayClaims = resp.getAsJsonObject("DisplayClaims");
+
             JsonArray xuiArray = displayClaims.getAsJsonArray("xui");
             JsonObject xuiObject = xuiArray.get(0).getAsJsonObject();
 
-            String token = resp.get("Token").getAsString();
-            String uhs = xuiObject.get("uhs").getAsString();
+            String token = resp.get("Token").getAsString(),
+                    uhs = xuiObject.get("uhs").getAsString();
 
             return new AbstractMap.SimpleImmutableEntry<>(token, uhs);
         }
     }
 
-    private Map.Entry<String, String> authMinecraft(String userHash, String xstsToken) throws IOException {
+    private static Map.Entry<String, String> authMinecraft(String userHash, String xstsToken) throws IOException {
         JsonObject req = new JsonObject();
         req.addProperty("identityToken", "XBL3.0 x=" + userHash + ";" + xstsToken);
 
@@ -190,14 +206,18 @@ public class WebLogic {
                 .build();
 
         try (Response response = CLIENT.newCall(request).execute()) {
+            if (response.body() == null) {
+                throw new IOException("authMinecraft response body is null");
+            }
+
             if (!response.isSuccessful()) {
                 throw new IllegalArgumentException("authMinecraft response: " + response.code() + ", data: " + response.body().string());
             }
 
             JsonObject resp = GSON.fromJson(response.body().charStream(), JsonObject.class);
 
-            String accessToken = resp.get("access_token").getAsString();
-            String tokenType = resp.get("token_type").getAsString();
+            String accessToken = resp.get("access_token").getAsString(),
+                    tokenType = resp.get("token_type").getAsString();
 
             return new AbstractMap.SimpleImmutableEntry<>(accessToken, tokenType);
         }
@@ -212,10 +232,10 @@ public class WebLogic {
                 .get()
                 .build();
 
-        CLIENT.newCall(request).execute(); // We don't care about the response
+        CLIENT.newCall(request).execute().close(); // We don't care about the response
     }
 
-    private Map.Entry<UUID, String> getProfile(String authorisation, String accessToken) throws IOException {
+    private static Map.Entry<UUID, String> getProfile(String authorisation, String accessToken) throws IOException {
         Request request = new Request.Builder()
                 .url(MINECRAFT_PROFILE_URL)
                 .addHeader("Authorization", authorisation + " " + accessToken)
@@ -223,6 +243,10 @@ public class WebLogic {
                 .build();
 
         try (Response response = CLIENT.newCall(request).execute()) {
+            if (response.body() == null) {
+                throw new IOException("getProfile response body is null");
+            }
+
             if (!response.isSuccessful()) {
                 throw new IllegalArgumentException("getProfile response: " + response.code() + ", data: " + response.body().string());
             }
@@ -237,7 +261,7 @@ public class WebLogic {
         }
     }
 
-    private Map.Entry<String, String> getAccessRefreshTokens(Response response) throws IOException {
+    private static Map.Entry<String, String> getAccessRefreshTokens(Response response) throws IOException {
         try (ResponseBody responseBody = response.body()) {
             if (responseBody == null) {
                 throw new IOException("Response body is null");
