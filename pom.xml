@@ -6,7 +6,7 @@
 
     <groupId>tech.fentanyl</groupId>
     <artifactId>microsoftlogin</artifactId>
-    <version>1.0.7</version>
+    <version>1.0.8</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
