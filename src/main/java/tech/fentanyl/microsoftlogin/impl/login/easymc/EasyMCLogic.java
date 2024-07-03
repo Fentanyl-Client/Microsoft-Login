@@ -3,9 +3,7 @@ package tech.fentanyl.microsoftlogin.impl.login.easymc;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import lombok.SneakyThrows;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
+import okhttp3.*;
 
 public class EasyMCLogic {
     private static final OkHttpClient CLIENT = new OkHttpClient().newBuilder()
@@ -19,10 +17,13 @@ public class EasyMCLogic {
 
     @SneakyThrows
     public EasyMCProfile redeem(String token) {
+        JsonObject req = new JsonObject();
+        req.addProperty("token", token);
+
         Request request = new Request.Builder()
                 .url(REDEEM_URL)
                 .header("Content-Type", "application/json")
-                .post(okhttp3.RequestBody.create("{\"token\":\"" + token + "\"}", okhttp3.MediaType.parse("application/json")))
+                .post(RequestBody.create(req.toString(), MediaType.parse("application/json")))
                 .build();
 
         try (Response response = CLIENT.newCall(request).execute()) {
