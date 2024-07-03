@@ -2,5 +2,6 @@ package tech.fentanyl.microsoftlogin.api.profile;
 
 public enum ProfileType {
     CRACKED,
+    EASY_MC,
     WEB
 }

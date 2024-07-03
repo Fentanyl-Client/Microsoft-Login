@@ -8,43 +8,41 @@
  * THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
-package tech.fentanyl.microsoftlogin.impl.util;
+package tech.fentanyl.microsoftlogin.impl.login.easymc;
 
 import com.google.gson.JsonObject;
-import lombok.experimental.UtilityClass;
-import tech.fentanyl.microsoftlogin.api.profile.IProfile;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import tech.fentanyl.microsoftlogin.api.profile.Profile;
 import tech.fentanyl.microsoftlogin.api.profile.ProfileType;
-import tech.fentanyl.microsoftlogin.impl.login.cracked.CrackedProfile;
-import tech.fentanyl.microsoftlogin.impl.login.easymc.EasyMCProfile;
-import tech.fentanyl.microsoftlogin.impl.login.web.WebProfile;
 
-@UtilityClass
-public class ProfileUtil {
-    public static IProfile dynamicCreate(JsonObject json) {
-        ProfileType type = ProfileType.valueOf(json.get("type").getAsString());
-        IProfile profile = null;
+@EqualsAndHashCode(callSuper = true)
+@Data
+public class EasyMCProfile extends Profile {
+    private String session, uuid;
 
-        switch (type) {
-            case CRACKED:
-                profile = new CrackedProfile();
-                break;
-            case EASY_MC:
-                profile = new EasyMCProfile();
-                break;
-            case WEB:
-                profile = new WebProfile();
-                break;
-        }
+    public EasyMCProfile() {
+        super(ProfileType.EASY_MC);
+    }
 
-        if (profile == null) {
-            throw new IllegalArgumentException("dynamicCreate: profile is null");
-        }
+    public EasyMCProfile(String username, String session, String uuid) {
+        super(username, ProfileType.EASY_MC);
+        this.session = session;
+        this.uuid = uuid;
+    }
 
-        if (profile.getType() == null) {
-            throw new NullPointerException("dynamicCreate: profile type is null");
-        }
+    @Override
+    public JsonObject toJson() {
+        JsonObject json = super.toJson();
+        json.addProperty("session", this.session);
+        json.addProperty("uuid", this.uuid);
+        return json;
+    }
 
-        profile.fromJson(json);
-        return profile;
+    @Override
+    public void fromJson(JsonObject json) {
+        super.fromJson(json);
+        this.session = json.get("session").getAsString();
+        this.uuid = json.get("uuid").getAsString();
     }
 }
