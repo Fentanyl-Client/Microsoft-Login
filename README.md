@@ -46,30 +46,6 @@ public class Main {
 }
 ```
 
-### EasyMC Login
-[EasyMC](https://easymc.io/) is a free and reliable Minecraft alternative account provider. This provides an alternative to cracked accounts for free without hassle.
-
-Although, to get an account, you first need to retrieve a token from them.
-
-```java
-import net.minecraft.util.Session;
-import tech.fentanyl.microsoftlogin.impl.login.easymc.EasyMCLogin;
-import tech.fentanyl.microsoftlogin.impl.login.easymc.EasyMCProfile;
-
-public class Main {
-    public static void main(String[] args) {
-        EasyMCLogin login = new EasyMCLogin("TOKEN");
-        EasyMCProfile profile = login.login();
-
-        Session session = new Session(profile.getUsername(), profile.getUuid(), profile.getSession(), "mojang");
-    }
-}
-```
-
-Please keep in mind that:
-* I suggest against saving these accounts since they are temporary.
-* You will need to switch session servers whilst using these accounts. Refer to their [documentation](https://easymc.io/api) for more information.
-
 ### Web Login
 Web login opens a web browser and prompts the user to login to Microsoft.
 
