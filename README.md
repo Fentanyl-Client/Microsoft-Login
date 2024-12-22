@@ -1,3 +1,7 @@
+## ⚠️ Archived
+
+This project is no longer maintained.
+
 # Microsoft Login
 A Java library for Minecraft cheats to log into Microsoft. This is designed to simplify the overall process.
 
